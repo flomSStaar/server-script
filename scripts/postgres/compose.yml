@@ -9,6 +9,8 @@ services:
     container_name: database-postgres
     image: postgres:17-alpine
     restart: always
+    secrets:
+      - root-password
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD_FILE: /run/secrets/root-password
