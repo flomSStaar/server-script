@@ -1,0 +1,78 @@
+#!/bin/bash
+
+SECRET_FILE="/root/secrets/postgres"
+
+success() {
+  echo -e "\033[32m${1}\033[0m"
+}
+
+error() {
+    echo -e "\033[31m`basename $0`: ${1}\033[0m"
+}
+
+usage() {
+   echo
+   echo -e "usage: \033[32m`basename $0`\033[0m <db_name> <db_user> <db_password>"
+   echo
+   echo "parameters:"
+   echo "   db_name         Database name"
+   echo "   db_user         Database user"
+   echo "   db_password     Database password"
+   echo
+}
+
+## Check if the user is root
+if [ $(id -u) -ne 0 ]; then
+  error "Please run this script as root"
+  exit 1
+fi
+
+## Check if the secrets variables can be sourced
+if [[ -e "$SECRET_FILE" ]]; then
+    POSTGRESQL_ROOT_PASSWORD=`cat $SECRET_FILE`
+    if [[ -z "$POSTGRESQL_ROOT_PASSWORD" ]]; then
+        error "POSTGRESQL_ROOT_PASSWORD is not defined"
+        exit 2
+    fi
+else
+    error "Secret file does not exists at $SECRET_FILE"
+    exit 3
+fi
+
+## Show help
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    usage
+    exit 0
+fi
+
+DATABASE_NAME="$1"
+DATABASE_USER="$2"
+DATABASE_PASSWORD="$3"
+
+while [ -z $DATABASE_NAME ] ; do
+  read -p "Database name ? " DATABASE_NAME
+done
+
+while [ -z $DATABASE_USER ] ; do
+  read -p "Database user ? " DATABASE_USER
+done
+
+while [ -z $DATABASE_PASSWORD ] ; do
+  read -p "Database password ? " DATABASE_PASSWORD
+done
+
+docker exec -i -e PGPASSWORD="$POSTGRESQL_ROOT_PASSWORD" database-postgresql psql -v ON_ERROR_STOP=1 --username "root" << EOF
+    CREATE DATABASE $DATABASE_NAME;
+    CREATE USER $DATABASE_USER WITH ENCRYPTED PASSWORD '$DATABASE_PASSWORD';
+    GRANT ALL PRIVILEGES ON DATABASE $DATABASE_NAME TO $DATABASE_USER;
+    \c $DATABASE_NAME;
+    GRANT ALL ON SCHEMA public TO $DATABASE_USER;
+EOF
+
+if [[ "$?" -ne 0 ]]; then
+  error "Error while creating database"
+  exit 4
+fi
+
+success "Database created"
+exit 0
