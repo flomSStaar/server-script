@@ -22,7 +22,7 @@ usage() {
 }
 
 ## Check if the user is root
-if [ $(id -u) -ne 0 ]; then
+if [[ "$(id -u)" -ne 0 ]]; then
   error "Please run this script as root"
   exit 1
 fi
@@ -50,7 +50,7 @@ DATABASE_USER="$2"
 DATABASE_PASSWORD="$3"
 
 while [ -z $DATABASE_NAME ] ; do
-  read -p "Database name ?  " DATABASE_NAME
+  read -p "Database name ? " DATABASE_NAME
 done
 
 while [ -z $DATABASE_USER ] ; do
