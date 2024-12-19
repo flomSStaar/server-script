@@ -1,0 +1,18 @@
+volumes:
+  db:
+    name: mariadb_data
+secrets:
+  root-password:
+    file: /root/secrets/mariadb
+services:
+  mariadb:
+    container_name: database-mariadb
+    image: mariadb:11.5.2
+    restart: always
+    secrets:
+      - root-password
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/root-password
+    volumes:
+      - db:/var/lib/mysql
+    network_mode: host

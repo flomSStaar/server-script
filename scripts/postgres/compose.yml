@@ -1,0 +1,17 @@
+volumes:
+  db:
+    name: postgres_data
+secrets:
+  root-password:
+    file: /root/secrets/postgres
+services:
+  database:
+    container_name: database-postgres
+    image: postgres:17-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD_FILE: /run/secrets/root-password
+    volumes:
+      - db:/var/lib/postgresql/data
+    network_mode: host

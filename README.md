@@ -4,6 +4,12 @@ This repository contains utility scripts for managing a server.
 
 ## Scripts
 
+### install
+
+This script installs all the scripts in this repository.
+
+Usage: `./install -h`
+
 ### MariaDB
 
 These scripts are for managing MariaDB databases in a Docker container.
