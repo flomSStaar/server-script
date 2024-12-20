@@ -13,6 +13,7 @@ services:
       - root-password
     environment:
       MYSQL_ROOT_PASSWORD_FILE: /run/secrets/root-password
+      TZ: Europe/Paris
     volumes:
       - db:/var/lib/mysql
     network_mode: host
