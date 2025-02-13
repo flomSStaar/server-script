@@ -61,7 +61,7 @@ if [[ ! -e "$SQL_FILE" ]]; then
     exit 5
 fi
 
-docker exec -i -e PGPASSWORD="$POSTGRESQL_ROOT_PASSWORD" database-postgresql psql --username root "$DATABASE_NAME" < "$SQL_FILE"
+docker exec -i -e PGPASSWORD="$POSTGRESQL_ROOT_PASSWORD" database-postgres psql --username root "$DATABASE_NAME" < "$SQL_FILE"
 
 if [[ "$?" -ne 0 ]]; then
   error "Error while importing database"

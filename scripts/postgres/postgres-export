@@ -61,7 +61,7 @@ if [[ -e "$SQL_FILE" ]]; then
     exit 5
 fi
 
-docker exec -i -e PGPASSWORD="$POSTGRESQL_ROOT_PASSWORD" database-postgresql pg_dump --username root "$DATABASE_NAME" > "$SQL_FILE"
+docker exec -i -e PGPASSWORD="$POSTGRESQL_ROOT_PASSWORD" database-postgres pg_dump --username root "$DATABASE_NAME" > "$SQL_FILE"
 
 if [[ "$?" -ne 0 ]]; then
   error "Error while exporting database"

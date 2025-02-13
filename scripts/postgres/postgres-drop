@@ -55,7 +55,7 @@ while [ -z $DATABASE_USER ] ; do
   read -p "Database user ? " DATABASE_USER
 done
 
-docker exec -i -e PGPASSWORD="$POSTGRESQL_ROOT_PASSWORD" database-postgresql bash -c "dropdb $DATABASE_NAME; dropuser $DATABASE_USER"
+docker exec -i -e PGPASSWORD="$POSTGRESQL_ROOT_PASSWORD" database-postgres bash -c "dropdb $DATABASE_NAME; dropuser $DATABASE_USER"
 
 if [[ "$?" -ne 0 ]]; then
   error "Error while dropping database"

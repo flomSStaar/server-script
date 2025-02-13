@@ -61,7 +61,7 @@ while [ -z $DATABASE_PASSWORD ] ; do
   read -p "Database password ? " DATABASE_PASSWORD
 done
 
-docker exec -i -e PGPASSWORD="$POSTGRESQL_ROOT_PASSWORD" database-postgresql psql -v ON_ERROR_STOP=1 --username "root" << EOF
+docker exec -i -e PGPASSWORD="$POSTGRESQL_ROOT_PASSWORD" database-postgres psql -v ON_ERROR_STOP=1 --username "root" << EOF
     CREATE DATABASE $DATABASE_NAME;
     CREATE USER $DATABASE_USER WITH ENCRYPTED PASSWORD '$DATABASE_PASSWORD';
     GRANT ALL PRIVILEGES ON DATABASE $DATABASE_NAME TO $DATABASE_USER;
