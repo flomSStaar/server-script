@@ -31,12 +31,13 @@ sed -i -E "s/TRAEFIK_BASIC_AUTH_PASSWORD/${TRAEFIK_BASIC_AUTH_PASSWORD}/" "$SERV
 
 ### Install and configure logrotate
 info "Installing and configure logrotate for Traefik"
-apt-get install -y logrotate
+apt-get install -y logrotate > /dev/null
 cp "$DIR/traefik/logrotate" "/etc/logrotate.d/traefik"
 
 ### Create a network for Traefik
 info "Creating docker network: traefik_proxy"
-docker network create traefik_proxy
+docker network create traefik_proxy > /dev/null
+success "Docker network traefik_proxy created"
 
 ### Launch the traefik container
 info "Launching traefik container"
