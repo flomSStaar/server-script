@@ -12,6 +12,10 @@ success() {
   echo -e "${GREEN}${1}${NC}"
 }
 
+warning() {
+  echo -e "${YELLOW}${1}${NC}"
+}
+
 error() {
   echo -e "${RED}$(basename "$0"): ${1}${NC}"
 }
