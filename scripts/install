@@ -5,7 +5,7 @@ source "./utils/functions.sh"
 
 usage() {
   echo
-  echo -e "usage: \033[32m`basename $0`\033[0m [options]"
+  echo -e "usage: \033[32m$(basename "$0")\033[0m [options]"
   echo
   echo "This script installs a server with modules."
   echo
@@ -45,7 +45,7 @@ done
 if [[ ! -d "$ROOT_SCRIPT_DIR" ]]; then
   info "Initializing ROOT_SCRIPT_DIR"
 
-  mkdir -p $ROOT_SCRIPT_DIR
+  mkdir -p "$ROOT_SCRIPT_DIR"
 
   success "ROOT_SCRIPT_DIR initialized"
 fi
@@ -53,8 +53,8 @@ fi
 if [[ ! -d "$SECRETS_DIR" ]]; then
   info "Initializing SECRETS_DIR"
 
-  mkdir -p $SECRETS_DIR
-  chmod 700 $SECRETS_DIR
+  mkdir -p "$SECRETS_DIR"
+  chmod 700 "$SECRETS_DIR"
 
   success "SECRETS_DIR initialized"
 fi
@@ -62,7 +62,7 @@ fi
 if [[ ! -d "$SERVICES_DIR" ]]; then
   info "Initializing SERVICES_DIR"
 
-  mkdir -p $SERVICES_DIR
+  mkdir -p "$SERVICES_DIR"
 
   success "SERVICES_DIR initialized"
 fi
