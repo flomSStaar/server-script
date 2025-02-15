@@ -38,7 +38,7 @@ for ARG in "$@"; do
   esac
 done
 
-if [[ -d "$ROOT_SCRIPT_DIR" ]]; then
+if [[ ! -d "$ROOT_SCRIPT_DIR" ]]; then
   info "Initializing ROOT_SCRIPT_DIR"
 
   mkdir -p $ROOT_SCRIPT_DIR
@@ -46,7 +46,7 @@ if [[ -d "$ROOT_SCRIPT_DIR" ]]; then
   success "ROOT_SCRIPT_DIR initialized"
 fi
 
-if [[ -d "$SECRETS_DIR" ]]; then
+if [[ ! -d "$SECRETS_DIR" ]]; then
   info "Initializing SECRETS_DIR"
 
   mkdir -p $SECRETS_DIR
@@ -55,7 +55,7 @@ if [[ -d "$SECRETS_DIR" ]]; then
   success "SECRETS_DIR initialized"
 fi
 
-if [[ -d "$SERVICES_DIR" ]]; then
+if [[ ! -d "$SERVICES_DIR" ]]; then
   info "Initializing SERVICES_DIR"
 
   mkdir -p $SERVICES_DIR
