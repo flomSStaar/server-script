@@ -43,3 +43,10 @@ rm -rf $SERVICES_DIR
 # Remove symbolic links
 rm -f /usr/local/bin/postgres-*
 rm -f /usr/local/bin/mariadb-*
+
+# Uninstall docker
+apt-get remove -y --purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+rm -f /etc/apt/keyrings/docker.asc
+rm -f /etc/apt/sources.list.d/docker.list
+apt autoremove -y
+apt update
