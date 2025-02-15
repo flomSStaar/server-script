@@ -23,3 +23,7 @@ check_docker_installed() {
     exit 1
   fi
 }
+
+generate_password() {
+  openssl rand -base64 32
+}
