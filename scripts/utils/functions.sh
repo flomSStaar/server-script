@@ -1,11 +1,11 @@
 RED="\033[0;31m"
 GREEN="\033[0;32m"
-BLUE="\033[0;34m"
+WHITE="\033[0;37m"
 YELLOW="\033[0;33m"
 NC="\033[0m"
 
 info() {
-  echo -e "${BLUE}${1}${NC}"
+  echo -e "${WHITE}${1}${NC}"
 }
 
 success() {
