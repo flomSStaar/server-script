@@ -39,3 +39,7 @@ fi
 rm -rf $ROOT_SCRIPT_DIR
 rm -rf $SECRETS_DIR
 rm -rf $SERVICES_DIR
+
+# Remove symbolic links
+rm -f /usr/local/bin/postgres-*
+rm -f /usr/local/bin/mariadb-*
