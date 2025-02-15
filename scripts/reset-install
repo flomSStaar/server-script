@@ -1,11 +1,14 @@
 #!/bin/bash
 
-source "./utils/variables.sh"
-source "./utils/functions.sh"
+# Get the directory of the running script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+source "$DIR/utils/variables.sh"
+source "$DIR/utils/functions.sh"
 
 usage() {
   echo
-  echo -e "usage: \033[32m`basename $0`\033[0m [options]"
+  echo -e "usage: \033[32m$(basename "$0")\033[0m [options]"
   echo
   echo "This script resets the installation by removing existing configurations and data."
   echo
@@ -28,21 +31,29 @@ check_root
 
 # Stop containers
 if command -v docker &> /dev/null; then
+  docker compose -f "$SERVICES_DIR/traefik/compose.yml" down
   docker compose -f "$SERVICES_DIR/postgres/compose.yml" down
   docker compose -f "$SERVICES_DIR/mariadb/compose.yml" down
 
   docker volume rm postgres_data
   docker volume rm mariadb_data
+
+  docker network rm traefik_proxy
 fi
 
 # Remove existing configurations and data
 rm -rf $ROOT_SCRIPT_DIR
 rm -rf $SECRETS_DIR
 rm -rf $SERVICES_DIR
+rm -rf /var/log/traefik
 
 # Remove symbolic links
 rm -f /usr/local/bin/postgres-*
 rm -f /usr/local/bin/mariadb-*
+
+# Uninstall logrotate
+apt-get remove -y --purge logrotate
+rm -f /etc/logrotate.d/traefik
 
 # Uninstall docker
 apt-get remove -y --purge docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin

@@ -2,7 +2,6 @@
 
 # Get the directory of the running script
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-export DIR
 
 source "$DIR/utils/variables.sh"
 source "$DIR/utils/functions.sh"
