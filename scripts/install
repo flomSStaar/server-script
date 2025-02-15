@@ -38,6 +38,7 @@ for ARG in "$@"; do
     --all)
       POSTGRES=true
       MARIADB=true
+      DOCKER=true
       ;;
     --docker)
       DOCKER=true
