@@ -26,8 +26,8 @@ install -m 600 -o root -g root "$DIR/traefik/acme.json" "$SERVICES_DIR/traefik/c
 info "Configuring Traefik ..."
 sed -i -E "s/TRAEFIK_DASHBOARD_URL/${TRAEFIK_DASHBOARD_URL}/" "$SERVICES_DIR/traefik/compose.yml"
 sed -i -E "s/TRAEFIK_SSL_EMAIL/${TRAEFIK_SSL_EMAIL}/" "$SERVICES_DIR/traefik/traefik.yml"
-sed -i -E "s/TRAEFIK_BASIC_AUTH_USER/${TRAEFIK_BASIC_AUTH_USER}/" "$SERVICES_DIR/traefik/traefik-basicauth.yml"
-sed -i -E "s/TRAEFIK_BASIC_AUTH_PASSWORD/${TRAEFIK_BASIC_AUTH_PASSWORD}/" "$SERVICES_DIR/traefik/traefik-basicauth.yml"
+sed -i -E "s/TRAEFIK_BASIC_AUTH_USER/${TRAEFIK_BASIC_AUTH_USER}/" "$SERVICES_DIR/traefik/conf.d/traefik-basicauth.yml"
+sed -i -E "s/TRAEFIK_BASIC_AUTH_PASSWORD/${TRAEFIK_BASIC_AUTH_PASSWORD}/" "$SERVICES_DIR/traefik/conf.d/traefik-basicauth.yml"
 
 ### Install and configure logrotate
 info "Installing and configure logrotate for Traefik"
