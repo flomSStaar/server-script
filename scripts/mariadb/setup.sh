@@ -10,11 +10,10 @@ info "Copying mariadb compose file"
 cp "$DIR/mariadb/compose.yml" "$SERVICES_DIR/mariadb"
 
 ### Create the mariadb secret file
-info "Creating mariadb secret file, don't forget to set the password"
+info "Creating mariadb secret file with generated password"
 generate_password > "$SECRETS_DIR/mariadb"
 chmod 600 "$SECRETS_DIR/mariadb"
-info "Generated password for mariadb:"
-echo -e "\t${YELLOW}$(cat "$SECRETS_DIR/mariadb")${NC}"
+warning "Generated password for mariadb:\n\t$(cat "$SECRETS_DIR/mariadb")"
 
 ### Copy the mariadb scripts to /root/scripts
 info "Copying mariadb scripts"

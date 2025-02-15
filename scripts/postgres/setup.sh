@@ -10,11 +10,10 @@ info "Copying postgres compose file"
 cp "$DIR/postgres/compose.yml" "$SERVICES_DIR/postgres"
 
 ### Create the postgres secret file
-info "Creating postgres secret file with password"
+info "Creating postgres secret file with generated password"
 generate_password > "$SECRETS_DIR/postgres"
 chmod 600 "$SECRETS_DIR/postgres"
-info "Generated password for postgres:"
-echo -e "\t${YELLOW}$(cat "$SECRETS_DIR/postgres")${NC}"
+warning "Generated password for postgres:\n\t$(cat "$SECRETS_DIR/postgres")"
 
 ### Copy the postgres scripts to /root/scripts
 info "Copying postgres scripts"
