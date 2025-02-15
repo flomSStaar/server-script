@@ -1,20 +1,13 @@
 #!/bin/bash
 
-info() {
-  echo -e "\033[34m${1}\033[0m"
-}
-
-success() {
-  echo -e "\033[32m${1}\033[0m"
-}
-
-error() {
-  echo -e "\033[31m`basename $0`: ${1}\033[0m"
-}
+source "./utils/variables.sh"
+source "./utils/functions.sh"
 
 usage() {
   echo
   echo -e "usage: \033[32m`basename $0`\033[0m [options]"
+  echo
+  echo "This script installs a server with modules."
   echo
   echo "options:"
   echo "   -h, --help        Show this help"
@@ -23,14 +16,7 @@ usage() {
   echo
 }
 
-## Check if the user is root
-if [ "$(id -u)" -ne 0 ]; then
-  error "Please run this script as root"
-  exit 1
-fi
-
-# Get the directory of the running script
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+check_root
 
 # Initialize variables
 MARIADB=false
@@ -52,77 +38,39 @@ for ARG in "$@"; do
   esac
 done
 
-ROOT_SCRIPT_DIR="/root/scripts"
-SECRETS_DIR="/root/secrets"
-SERVICES_DIR="/home/services"
+if [[ -z "$ROOT_SCRIPT_DIR" ]]; then
+  info "Initializing ROOT_SCRIPT_DIR"
 
-mkdir -p $ROOT_SCRIPT_DIR
-mkdir -p $SECRETS_DIR
-chmod 700 $SECRETS_DIR
-mkdir -p $SERVICES_DIR
+  mkdir -p $ROOT_SCRIPT_DIR
+
+  success "ROOT_SCRIPT_DIR initialized"
+fi
+
+if [[ -z "$SECRETS_DIR" ]]; then
+  info "Initializing SECRETS_DIR"
+
+  mkdir -p $SECRETS_DIR
+  chmod 700 $SECRETS_DIR
+
+  success "SECRETS_DIR initialized"
+fi
+
+if [[ -z "$SERVICES_DIR" ]]; then
+  info "Initializing SERVICES_DIR"
+
+  mkdir -p $SERVICES_DIR
+
+  success "SERVICES_DIR initialized"
+fi
 
 ## MariaDB
 if [ "$MARIADB" = true ]; then
-  ### Create mariadb directory in services
-  info "Creating mariadb directory"
-  mkdir -p $SERVICES_DIR/mariadb
-
-  ### Copy the compose.yml to /home/services
-  info "Copying mariadb compose file"
-  cp $DIR/mariadb/compose.yml $SERVICES_DIR/mariadb
-
-  ### Create the mariadb secret file
-  info "Creating mariadb secret file, don't forget to set the password"
-  touch $SECRETS_DIR/mariadb
-  chmod 600 $SECRETS_DIR/mariadb
-
-  ### Copy the mariadb scripts to /root/scripts
-  info "Copying mariadb scripts"
-  cp $DIR/mariadb/mariadb-create $ROOT_SCRIPT_DIR
-  cp $DIR/mariadb/mariadb-drop $ROOT_SCRIPT_DIR
-  cp $DIR/mariadb/mariadb-import $ROOT_SCRIPT_DIR
-  cp $DIR/mariadb/mariadb-export $ROOT_SCRIPT_DIR
-  success "Mariadb scripts copied"
-
-  ### Link the mariadb scripts
-  info "Linking mariadb scripts"
-  ln -sf "$ROOT_SCRIPT_DIR/mariadb-create" /usr/local/bin
-  ln -sf "$ROOT_SCRIPT_DIR/mariadb-drop" /usr/local/bin
-  ln -sf "$ROOT_SCRIPT_DIR/mariadb-import" /usr/local/bin
-  ln -sf "$ROOT_SCRIPT_DIR/mariadb-export" /usr/local/bin
-  success "Mariadb scripts linked"
+  source ./mariadb/setup.sh
 fi
 
 ## PostgreSQL
 if [ "$POSTGRES" = true ]; then
-  ### Create postgres directory in services
-  info "Creating postgres directory"
-  mkdir -p $SERVICES_DIR/postgres
-
-  ### Copy the compose.yml to /home/services
-  info "Copying postgres compose file"
-  cp $DIR/postgres/compose.yml $SERVICES_DIR/postgres
-
-  ### Create the postgres secret file
-  info "Creating postgres secret file, don't forget to set the password"
-  touch $SECRETS_DIR/postgres
-  chmod 600 $SECRETS_DIR/postgres
-
-  ### Copy the postgres scripts to /root/scripts
-  info "Copying postgres scripts"
-  cp $DIR/postgres/postgres-create $ROOT_SCRIPT_DIR
-  cp $DIR/postgres/postgres-drop $ROOT_SCRIPT_DIR
-  cp $DIR/postgres/postgres-import $ROOT_SCRIPT_DIR
-  cp $DIR/postgres/postgres-export $ROOT_SCRIPT_DIR
-  success "Copied postgres scripts"
-
-  ### Link the postgres scripts
-  info "Linking postgres scripts"
-  ln -sf "$ROOT_SCRIPT_DIR/postgres-create" /usr/local/bin
-  ln -sf "$ROOT_SCRIPT_DIR/postgres-drop" /usr/local/bin
-  ln -sf "$ROOT_SCRIPT_DIR/postgres-import" /usr/local/bin
-  ln -sf "$ROOT_SCRIPT_DIR/postgres-export" /usr/local/bin
-  success "Linked postgres scripts"
+  source ./postgres/setup.sh
 fi
 
 echo
