@@ -61,7 +61,7 @@ while [ -z $DATABASE_PASSWORD ] ; do
   read -p "Database password ? " DATABASE_PASSWORD
 done
 
-docker exec -i database mariadb -u root --password="$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE $DATABASE_NAME;
+docker exec database-mariadb mariadb -u root --password="$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE $DATABASE_NAME;
 CREATE USER $DATABASE_USER@'%' IDENTIFIED BY '$DATABASE_PASSWORD';
 GRANT ALL PRIVILEGES ON $DATABASE_NAME.* TO '$DATABASE_USER'@'%';
 FLUSH PRIVILEGES;

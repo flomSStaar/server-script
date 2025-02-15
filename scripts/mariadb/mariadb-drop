@@ -55,7 +55,7 @@ while [ -z $DATABASE_USER ] ; do
   read -p "Database user ? " DATABASE_USER
 done
 
-docker exec -i database mariadb -u root --password="$MYSQL_ROOT_PASSWORD" -e "REVOKE ALL PRIVILEGES, GRANT OPTION FROM $DATABASE_USER@'%';
+docker exec database-mariadb mariadb -u root --password="$MYSQL_ROOT_PASSWORD" -e "REVOKE ALL PRIVILEGES, GRANT OPTION FROM $DATABASE_USER@'%';
 DROP USER $DATABASE_USER@'%';
 DROP DATABASE $DATABASE_NAME;
 FLUSH PRIVILEGES;

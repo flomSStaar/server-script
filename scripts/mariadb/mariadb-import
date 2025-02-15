@@ -61,7 +61,7 @@ if [[ ! -e "$SQL_FILE" ]]; then
     exit 5
 fi
 
-docker exec -i database mariadb -u root --password="$MYSQL_ROOT_PASSWORD" "$DATABASE_NAME" < "$SQL_FILE"
+docker exec database-mariadb mariadb -u root --password="$MYSQL_ROOT_PASSWORD" "$DATABASE_NAME" < "$SQL_FILE"
 
 if [[ "$?" -ne 0 ]]; then
   error "Error while importing database"
