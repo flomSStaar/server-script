@@ -30,3 +30,8 @@ ln -sf "$ROOT_SCRIPT_DIR/mariadb-drop" /usr/local/bin
 ln -sf "$ROOT_SCRIPT_DIR/mariadb-import" /usr/local/bin
 ln -sf "$ROOT_SCRIPT_DIR/mariadb-export" /usr/local/bin
 success "Mariadb scripts linked"
+
+### Launch the mariadb container
+info "Launching mariadb container"
+docker compose -f "$SERVICES_DIR/mariadb/compose.yml" up -d
+success "Mariadb setup complete"

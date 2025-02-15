@@ -30,3 +30,8 @@ ln -sf "$ROOT_SCRIPT_DIR/postgres-drop" /usr/local/bin
 ln -sf "$ROOT_SCRIPT_DIR/postgres-import" /usr/local/bin
 ln -sf "$ROOT_SCRIPT_DIR/postgres-export" /usr/local/bin
 success "Linked postgres scripts"
+
+### Launch the postgres container
+info "Launching postgres container"
+docker compose -f "$SERVICES_DIR/postgres/compose.yml" up -d
+success "Postgres setup complete"
