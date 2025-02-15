@@ -1,0 +1,41 @@
+#!/bin/bash
+
+source "./utils/variables.sh"
+source "./utils/functions.sh"
+
+usage() {
+  echo
+  echo -e "usage: \033[32m`basename $0`\033[0m [options]"
+  echo
+  echo "This script resets the installation by removing existing configurations and data."
+  echo
+  echo "options:"
+  echo "   -h, --help        Show this help"
+  echo
+}
+
+# Parse the options
+for ARG in "$@"; do
+  case "$ARG" in
+    -h|--help)
+      usage
+      exit 0
+      ;;
+  esac
+done
+
+check_root
+
+# Stop containers
+if command -v docker &> /dev/null; then
+  docker compose -f "$SERVICES_DIR/postgres/compose.yml" down
+  docker compose -f "$SERVICES_DIR/mariadb/compose.yml" down
+
+  docker volume rm postgres_data
+  docker volume rm mariadb_data
+fi
+
+# Remove existing configurations and data
+rm -rf $ROOT_SCRIPT_DIR
+rm -rf $SECRETS_DIR
+rm -rf $SERVICES_DIR
