@@ -1,0 +1,28 @@
+networks:
+  traefik:
+    name: traefik_proxy
+    external: true
+
+services:
+  reverse-proxy:
+    image: traefik:3.1.6
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - TZ=Europe/Paris
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yml:/etc/traefik/traefik.yml
+      - ./certs/acme.json:/traefik/acme.json
+      - ./conf.d:/traefik/conf.d
+      - /var/log/traefik:/var/log/traefik
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.traefik.rule=Host(`TRAEFIK_DASHBOARD_URL`)
+      - traefik.http.routers.traefik.service=api@internal
+      - traefik.http.routers.traefik.entrypoints=websecure
+      - traefik.http.routers.traefik.middlewares=traefik-auth@file

@@ -1,0 +1,19 @@
+http:
+  middlewares:
+    security-headers:
+      headers:
+        customResponseHeaders:
+          X-Robots-Tag: "none,noarchive,nosnippet,notranslate,noimageindex"
+          server: ""
+          X-Frame-Options: SAMEORIGIN
+        sslProxyHeaders:
+          X-Forwarded-Proto: "https"
+        referrerPolicy: "same-origin"
+        hostsProxyHeaders:
+          - "X-Forwarded-Host"
+        contentTypeNosniff: true
+        browserXssFilter: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsSeconds: 31536000
+        stsPreload: true

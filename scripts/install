@@ -1,7 +1,11 @@
 #!/bin/bash
 
-source "./utils/variables.sh"
-source "./utils/functions.sh"
+# Get the directory of the running script
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+export DIR
+
+source "$DIR/utils/variables.sh"
+source "$DIR/utils/functions.sh"
 
 usage() {
   echo
@@ -12,19 +16,20 @@ usage() {
   echo "options:"
   echo "   -h, --help        Show this help"
   echo "   --all             Install all modules"
-  echo "   --mariadb         Install mariadb"
-  echo "   --postgres        Install postgres"
+  echo "   --traefik         Install Traefik"
+  echo "   --mariadb         Install MariaDB"
+  echo "   --postgres        Install PostgreSQL"
   echo
 }
 
 check_root
 
-# Get the directory of the running script
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-export DIR
+# Load the configuration
+source "./install.conf"
 
 # Initialize variables
 DOCKER=false
+TRAEFIK=false
 MARIADB=false
 POSTGRES=false
 
@@ -42,6 +47,9 @@ for ARG in "$@"; do
       ;;
     --docker)
       DOCKER=true
+      ;;
+    --traefik)
+      TRAEFIK=true
       ;;
     --mariadb)
       MARIADB=true
@@ -80,6 +88,11 @@ fi
 ## Docker
 if [ "$DOCKER" = true ]; then
   source ./docker/setup.sh
+fi
+
+## Traefik
+if [ "$TRAEFIK" = true ]; then
+  source ./traefik/setup.sh
 fi
 
 ## MariaDB
