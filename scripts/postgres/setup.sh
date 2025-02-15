@@ -1,3 +1,6 @@
+### Check if Docker is installed
+check_docker_installed
+
 ### Create postgres directory in services
 info "Creating postgres directory"
 mkdir -p "$SERVICES_DIR/postgres"

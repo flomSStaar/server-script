@@ -16,3 +16,10 @@ check_root() {
     exit 1
   fi
 }
+
+check_docker_installed() {
+  if ! command -v docker &> /dev/null; then
+    error "Docker is not installed"
+    exit 1
+  fi
+}

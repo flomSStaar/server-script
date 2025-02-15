@@ -1,3 +1,6 @@
+### Check if Docker is installed
+check_docker_installed
+
 ### Create mariadb directory in services
 info "Creating mariadb directory"
 mkdir -p "$SERVICES_DIR/mariadb"
