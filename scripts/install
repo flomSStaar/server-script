@@ -11,6 +11,7 @@ usage() {
   echo
   echo "options:"
   echo "   -h, --help        Show this help"
+  echo "   --all             Install all modules"
   echo "   --mariadb         Install mariadb"
   echo "   --postgres        Install postgres"
   echo
@@ -32,6 +33,10 @@ for ARG in "$@"; do
     -h|--help)
       usage
       exit 0
+      ;;
+    --all)
+      POSTGRES=true
+      MARIADB=true
       ;;
     --mariadb)
       MARIADB=true
