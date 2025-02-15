@@ -35,5 +35,5 @@ check_docker_installed() {
 }
 
 generate_password() {
-  openssl rand -base64 32
+  openssl rand -hex 32
 }
