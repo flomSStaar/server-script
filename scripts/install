@@ -119,4 +119,5 @@ fi
 
 echo
 success "Installation complete"
+info "Please reboot the server to apply the changes"
 exit 0
