@@ -1,0 +1,24 @@
+networks:
+  traefik:
+    name: traefik_proxy
+    external: true
+
+volumes:
+  data:
+    name: uptime-kuma
+
+services:
+  uptime-kuma:
+    image: louislam/uptime-kuma:1.23.16-alpine
+    restart: always
+    container_name: uptime-kuma
+    volumes:
+      - data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.uptime-kuma.rule=Host(`UPTIME_KUMA_URL`)
+      - traefik.http.routers.uptime-kuma.entrypoints=websecure
+      - traefik.http.services.uptime-kuma.loadBalancer.server.port=3001

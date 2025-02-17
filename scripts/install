@@ -20,6 +20,7 @@ usage() {
   echo "   --traefik         Install Traefik"
   echo "   --mariadb         Install MariaDB"
   echo "   --postgres        Install PostgreSQL"
+  echo "   --uptime-kuma     Install Uptime Kuma"
   echo
 }
 
@@ -34,6 +35,7 @@ DOCKER=false
 TRAEFIK=false
 MARIADB=false
 POSTGRES=false
+UPTIME_KUMA=false
 
 # Parse the options
 for ARG in "$@"; do
@@ -63,6 +65,9 @@ for ARG in "$@"; do
       ;;
     --postgres)
       POSTGRES=true
+      ;;
+    --uptime-kuma)
+      UPTIME_KUMA=true
       ;;
   esac
 done
@@ -115,6 +120,11 @@ fi
 ## PostgreSQL
 if [ "$POSTGRES" = true ]; then
   source ./postgres/setup.sh
+fi
+
+## Uptime Kuma
+if [ "$UPTIME_KUMA" = true ]; then
+  source ./uptime-kuma/setup.sh
 fi
 
 echo
