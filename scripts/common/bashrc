@@ -1,0 +1,15 @@
+PS1='\[\033[91m\]\u@\h:\[\033[94m\]\w #\[\033[0m\] '
+
+# You may uncomment the following lines if you want `ls' to be colorized:
+export LS_OPTIONS='--color=auto'
+eval "$(dircolors)"
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lA'
+
+# Docker
+alias dcud="docker compose up -d"
+alias dcudf="docker compose up -d --force-recreate"
+alias dcd="docker compose down"
+alias dcl="docker compose logs"
+alias dclf="docker compose logs -f"

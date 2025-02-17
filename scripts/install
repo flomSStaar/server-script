@@ -15,6 +15,8 @@ usage() {
   echo "options:"
   echo "   -h, --help        Show this help"
   echo "   --all             Install all modules"
+  echo "   --common          Install common packages"
+  echo "   --docker          Install Docker"
   echo "   --traefik         Install Traefik"
   echo "   --mariadb         Install MariaDB"
   echo "   --postgres        Install PostgreSQL"
@@ -27,6 +29,7 @@ check_root
 source "./install.conf"
 
 # Initialize variables
+COMMON_PACKAGES=false
 DOCKER=false
 TRAEFIK=false
 MARIADB=false
@@ -44,6 +47,10 @@ for ARG in "$@"; do
       MARIADB=true
       DOCKER=true
       TRAEFIK=true
+      COMMON_PACKAGES=true
+      ;;
+    --common)
+      COMMON_PACKAGES=true
       ;;
     --docker)
       DOCKER=true
@@ -83,6 +90,11 @@ if [[ ! -d "$SERVICES_DIR" ]]; then
   mkdir -p "$SERVICES_DIR"
 
   success "SERVICES_DIR initialized"
+fi
+
+## Common packages
+if [ "$COMMON_PACKAGES" = true ]; then
+  source ./common/setup.sh
 fi
 
 ## Docker
