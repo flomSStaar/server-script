@@ -50,6 +50,7 @@ for ARG in "$@"; do
       DOCKER=true
       TRAEFIK=true
       COMMON_PACKAGES=true
+      UPTIME_KUMA=true
       ;;
     --common)
       COMMON_PACKAGES=true
