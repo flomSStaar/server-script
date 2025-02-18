@@ -17,6 +17,7 @@ usage() {
   echo "   --all             Install all modules"
   echo "   --common          Install common packages"
   echo "   --docker          Install Docker"
+  echo "   --fail2ban        Install Fail2ban"
   echo "   --traefik         Install Traefik"
   echo "   --mariadb         Install MariaDB"
   echo "   --postgres        Install PostgreSQL"
@@ -32,6 +33,7 @@ source "./install.conf"
 # Initialize variables
 COMMON_PACKAGES=false
 DOCKER=false
+FAIL2BAN=false
 TRAEFIK=false
 MARIADB=false
 POSTGRES=false
@@ -48,6 +50,7 @@ for ARG in "$@"; do
       POSTGRES=true
       MARIADB=true
       DOCKER=true
+      FAIL2BAN=true
       TRAEFIK=true
       COMMON_PACKAGES=true
       UPTIME_KUMA=true
@@ -57,6 +60,9 @@ for ARG in "$@"; do
       ;;
     --docker)
       DOCKER=true
+      ;;
+    --fail2ban)
+      FAIL2BAN=true
       ;;
     --traefik)
       TRAEFIK=true
@@ -106,6 +112,11 @@ fi
 ## Docker
 if [ "$DOCKER" = true ]; then
   source ./docker/setup.sh
+fi
+
+## Fail2ban
+if [ "$FAIL2BAN" = true ]; then
+  source ./fail2ban/setup.sh
 fi
 
 ## Traefik
