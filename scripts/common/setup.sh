@@ -20,3 +20,9 @@ hostnamectl set-hostname "${SERVER_HOSTNAME}"
 sed -i "s/${OLD_HOSTNAME}/${SERVER_HOSTNAME}/g" /etc/hosts
 
 success "Configured hostname: ${SERVER_HOSTNAME}"
+
+info "Configuring timezone"
+
+timedatectl set-timezone "${SERVER_TIMEZONE}"
+
+success "Configured timezone: ${SERVER_TIMEZONE}"
