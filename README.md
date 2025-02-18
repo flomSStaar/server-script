@@ -2,6 +2,58 @@
 
 This repository contains utility scripts for managing a server.
 
+
+## Usage
+
+Connect with ssh to your fresh server
+
+```bash
+ssh user@your-ip
+```
+
+Install git
+
+```bash
+sudo apt update
+sudo apt install -y git
+```
+
+Clone this repository and then move to the directory
+
+```bash
+git clone https://github.com/flomSStaar/server-script.git
+cd server-script
+```
+
+Configure the `server.conf` file as needed
+
+```bash
+nano server-server.conf
+```
+
+Run the `install` script as `root`
+
+```bash
+# For installing all the tools
+./install --all
+
+# You can adjust the tools to install
+./install --common --docker --fail2ban --traefik --postgres --mariadb --uptime-kuma
+```
+
+After the installation, reboot the server
+
+```
+reboot
+```
+
+After the installation, you can remove the `server-script` directory
+
+```bash
+cd ..
+rm -rf server-script
+```
+
 ## Scripts
 
 ### install
