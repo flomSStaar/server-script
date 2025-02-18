@@ -107,37 +107,37 @@ fi
 
 ## Common packages
 if [ "$COMMON_PACKAGES" = true ]; then
-  source ./common/setup.sh
+  source "$MODULES_DIR/common/setup.sh"
 fi
 
 ## Docker
 if [ "$DOCKER" = true ]; then
-  source ./docker/setup.sh
+  source "$MODULES_DIR/docker/setup.sh"
 fi
 
 ## Fail2ban
 if [ "$FAIL2BAN" = true ]; then
-  source ./fail2ban/setup.sh
+  source "$MODULES_DIR/fail2ban/setup.sh"
 fi
 
 ## Traefik
 if [ "$TRAEFIK" = true ]; then
-  source ./traefik/setup.sh
+  source "$MODULES_DIR/traefik/setup.sh"
 fi
 
 ## MariaDB
 if [ "$MARIADB" = true ]; then
-  source ./mariadb/setup.sh
+  source "$MODULES_DIR/mariadb/setup.sh"
 fi
 
 ## PostgreSQL
 if [ "$POSTGRES" = true ]; then
-  source ./postgres/setup.sh
+  source "$MODULES_DIR/postgres/setup.sh"
 fi
 
 ## Uptime Kuma
 if [ "$UPTIME_KUMA" = true ]; then
-  source ./uptime-kuma/setup.sh
+  source "$MODULES_DIR/uptime-kuma/setup.sh"
 fi
 
 echo
