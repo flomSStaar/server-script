@@ -7,7 +7,7 @@ mkdir -p "$SERVICES_DIR/uptime-kuma"
 
 ### Copy the compose.yml to SERVICES_DIR
 info "Copying uptime-kuma compose file"
-cp "$DIR/uptime-kuma/compose.yml" "$SERVICES_DIR/uptime-kuma"
+cp "$MODULES_DIR/uptime-kuma/compose.yml" "$SERVICES_DIR/uptime-kuma"
 
 ### Configuring uptime-kuma
 info "Configuring uptime-kuma"

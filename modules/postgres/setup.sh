@@ -7,7 +7,7 @@ mkdir -p "$SERVICES_DIR/postgres"
 
 ### Copy the compose.yml to /home/services
 info "Copying postgres compose file"
-cp "$DIR/postgres/compose.yml" "$SERVICES_DIR/postgres"
+cp "$MODULES_DIR/postgres/compose.yml" "$SERVICES_DIR/postgres"
 
 ### Create the postgres secret file
 info "Creating postgres secret file with generated password"
@@ -17,10 +17,10 @@ warning "Generated password for postgres:\n\t$(cat "$SECRETS_DIR/postgres")"
 
 ### Copy the postgres scripts to /root/scripts
 info "Copying postgres scripts"
-cp "$DIR/postgres/postgres-create" "$ROOT_SCRIPT_DIR"
-cp "$DIR/postgres/postgres-drop" "$ROOT_SCRIPT_DIR"
-cp "$DIR/postgres/postgres-import" "$ROOT_SCRIPT_DIR"
-cp "$DIR/postgres/postgres-export" "$ROOT_SCRIPT_DIR"
+cp "$MODULES_DIR/postgres/postgres-create" "$ROOT_SCRIPT_DIR"
+cp "$MODULES_DIR/postgres/postgres-drop" "$ROOT_SCRIPT_DIR"
+cp "$MODULES_DIR/postgres/postgres-import" "$ROOT_SCRIPT_DIR"
+cp "$MODULES_DIR/postgres/postgres-export" "$ROOT_SCRIPT_DIR"
 success "Copied postgres scripts"
 
 ### Link the postgres scripts

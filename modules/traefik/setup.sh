@@ -10,17 +10,17 @@ mkdir -p "/var/log/traefik"
 
 ### Copy the compose.yml to SERVICES_DIR
 info "Copying traefik compose file"
-cp "$DIR/traefik/compose.yml" "$SERVICES_DIR/traefik"
+cp "$MODULES_DIR/traefik/compose.yml" "$SERVICES_DIR/traefik"
 
 ### Copy the compose.yml to SERVICES_DIR
 info "Copying traefik configuration files"
-cp "$DIR/traefik/traefik.yml" "$SERVICES_DIR/traefik"
+cp "$MODULES_DIR/traefik/traefik.yml" "$SERVICES_DIR/traefik"
 
 ### Copy configuration files to SERVICES_DIR
 info "Copying traefik configuration files to conf.d"
-cp "$DIR/traefik/traefik-basicauth.yml" "$SERVICES_DIR/traefik/conf.d"
-cp "$DIR/traefik/global-headers.yml" "$SERVICES_DIR/traefik/conf.d"
-install -m 600 -o root -g root "$DIR/traefik/acme.json" "$SERVICES_DIR/traefik/certs/acme.json"
+cp "$MODULES_DIR/traefik/traefik-basicauth.yml" "$SERVICES_DIR/traefik/conf.d"
+cp "$MODULES_DIR/traefik/global-headers.yml" "$SERVICES_DIR/traefik/conf.d"
+install -m 600 -o root -g root "$MODULES_DIR/traefik/acme.json" "$SERVICES_DIR/traefik/certs/acme.json"
 
 ### Configure Traefik with environment variables
 info "Configuring Traefik ..."
@@ -32,7 +32,7 @@ sed -i "s/TRAEFIK_BASIC_AUTH/${ESCAPED_AUTH}/g" "$SERVICES_DIR/traefik/conf.d/tr
 ### Install and configure logrotate
 info "Installing and configure logrotate for Traefik"
 apt-get install -y logrotate > /dev/null
-cp "$DIR/traefik/logrotate" "/etc/logrotate.d/traefik"
+cp "$MODULES_DIR/traefik/logrotate" "/etc/logrotate.d/traefik"
 
 ### Create a network for Traefik
 info "Creating docker network: traefik_proxy"

@@ -4,9 +4,9 @@ apt-get install -y fail2ban > /dev/null
 
 ### Copy fail2ban configuration files
 info "Copying fail2ban configuration files"
-cp "$DIR/fail2ban/ignoreip.conf" /etc/fail2ban/jail.d
-cp "$DIR/fail2ban/sshd.conf" /etc/fail2ban/jail.d
-cp "$DIR/fail2ban/ipv6.conf" /etc/fail2ban/fail2ban.d
+cp "$MODULES_DIR/fail2ban/ignoreip.conf" /etc/fail2ban/jail.d
+cp "$MODULES_DIR/fail2ban/sshd.conf" /etc/fail2ban/jail.d
+cp "$MODULES_DIR/fail2ban/ipv6.conf" /etc/fail2ban/fail2ban.d
 
 ### Configure fail2ban
 info "Configure fail2ban"

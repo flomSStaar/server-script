@@ -6,7 +6,7 @@ success "Common packages installed"
 
 info "Configuring .bashrc for root user"
 
-cat "${DIR}/common/bashrc" > /root/.bashrc
+cat "$MODULES_DIR/common/bashrc" > /root/.bashrc
 
 success "Configured .bashrc for root user"
 

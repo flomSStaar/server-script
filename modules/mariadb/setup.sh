@@ -7,7 +7,7 @@ mkdir -p "$SERVICES_DIR/mariadb"
 
 ### Copy the compose.yml to /home/services
 info "Copying mariadb compose file"
-cp "$DIR/mariadb/compose.yml" "$SERVICES_DIR/mariadb"
+cp "$MODULES_DIR/mariadb/compose.yml" "$SERVICES_DIR/mariadb"
 
 ### Create the mariadb secret file
 info "Creating mariadb secret file with generated password"
@@ -17,10 +17,10 @@ warning "Generated password for mariadb:\n\t$(cat "$SECRETS_DIR/mariadb")"
 
 ### Copy the mariadb scripts to /root/scripts
 info "Copying mariadb scripts"
-cp "$DIR/mariadb/mariadb-create" "$ROOT_SCRIPT_DIR"
-cp "$DIR/mariadb/mariadb-drop" "$ROOT_SCRIPT_DIR"
-cp "$DIR/mariadb/mariadb-import" "$ROOT_SCRIPT_DIR"
-cp "$DIR/mariadb/mariadb-export" "$ROOT_SCRIPT_DIR"
+cp "$MODULES_DIR/mariadb/mariadb-create" "$ROOT_SCRIPT_DIR"
+cp "$MODULES_DIR/mariadb/mariadb-drop" "$ROOT_SCRIPT_DIR"
+cp "$MODULES_DIR/mariadb/mariadb-import" "$ROOT_SCRIPT_DIR"
+cp "$MODULES_DIR/mariadb/mariadb-export" "$ROOT_SCRIPT_DIR"
 success "Mariadb scripts copied"
 
 ### Link the mariadb scripts
