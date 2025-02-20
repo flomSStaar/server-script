@@ -1,6 +1,6 @@
 info "Installing common packages"
 
-apt-get install -y git curl wget vim htop unzip zip iproute2 ncdu ca-certificates locate sed > /dev/null
+apt-get install -y git curl wget vim htop unzip zip iproute2 ncdu ca-certificates locate sed cron > /dev/null
 
 success "Common packages installed"
 
