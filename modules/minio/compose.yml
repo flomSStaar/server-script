@@ -1,0 +1,32 @@
+networks:
+  traefik:
+    name: traefik_proxy
+    external: true
+volumes:
+  data:
+    name: minio_data
+services:
+  minio:
+    image: minio/minio:RELEASE.2025-02-28T09-55-16Z
+    container_name: minio
+    restart: always
+    networks:
+      - traefik
+    volumes:
+      - ./minio.conf:/etc/minio/config.env
+      - data:/data
+    environment:
+      MINIO_CONFIG_ENV_FILE: /etc/minio/config.env
+      MINIO_BROWSER_REDIRECT_URL: ${MINIO_BROWSER_REDIRECT_URL}
+      TZ: Europe/Paris
+    command: minio server --console-address ":8900"
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.minioconsole.service=minioconsole
+      - traefik.http.routers.minioconsole.rule=Host(`${MINIO_CONSOLE_DOMAIN}`)
+      - traefik.http.routers.minioconsole.entrypoints=websecure
+      - traefik.http.services.minioconsole.loadbalancer.server.port=8900
+      - traefik.http.routers.minioapi.service=minioapi
+      - traefik.http.routers.minioapi.rule=Host(`${MINIO_API_DOMAIN}`)
+      - traefik.http.routers.minioapi.entrypoints=websecure
+      - traefik.http.services.minioapi.loadbalancer.server.port=9000
