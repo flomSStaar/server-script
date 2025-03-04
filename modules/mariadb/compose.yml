@@ -7,7 +7,7 @@ secrets:
 services:
   mariadb:
     container_name: database-mariadb
-    image: mariadb:11.5.2
+    image: mariadb:11.7.2
     restart: always
     secrets:
       - root-password
