@@ -23,6 +23,7 @@ usage() {
   echo "   --mariadb         Install MariaDB"
   echo "   --postgres        Install PostgreSQL"
   echo "   --uptime-kuma     Install Uptime Kuma"
+  echo "   --minio           Install MinIO"
   echo
 }
 
@@ -39,6 +40,7 @@ TRAEFIK=false
 MARIADB=false
 POSTGRES=false
 UPTIME_KUMA=false
+MINIO=false
 
 # Parse the options
 for ARG in "$@"; do
@@ -55,6 +57,7 @@ for ARG in "$@"; do
       TRAEFIK=true
       COMMON_PACKAGES=true
       UPTIME_KUMA=true
+      MINIO=true
       ;;
     --common)
       COMMON_PACKAGES=true
@@ -76,6 +79,9 @@ for ARG in "$@"; do
       ;;
     --uptime-kuma)
       UPTIME_KUMA=true
+      ;;
+    --minio)
+      MINIO=true
       ;;
   esac
 done
@@ -138,6 +144,11 @@ fi
 ## Uptime Kuma
 if [ "$UPTIME_KUMA" = true ]; then
   source "$MODULES_DIR/uptime-kuma/setup.sh"
+fi
+
+## MinIO
+if [ "$MINIO" = true ]; then
+  source "$MODULES_DIR/minio/setup.sh"
 fi
 
 echo
