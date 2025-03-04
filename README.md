@@ -54,6 +54,18 @@ cd ..
 rm -rf server-script
 ```
 
+## Modules
+
+- [x] Common (--common)
+- [x] [Docker](https://docs.docker.com/engine/install/debian/) (--docker)
+- [x] [Traefik](https://doc.traefik.io/traefik/) (--traefik)
+- [x] [MariaDB](https://mariadb.org/) (--mariadb)
+- [x] [PostgreSQL](https://www.postgresql.org/) (--postgres)
+- [x] [Uptime Kuma](https://github.com/louislam/uptime-kuma) (--uptime-kuma)
+- [x] [Fail2ban](https://github.com/fail2ban/fail2ban) (--fail2ban)
+- [x] [Minio](https://min.io/) (--minio)
+- [ ] Ufw
+
 ## Scripts
 
 ### install
