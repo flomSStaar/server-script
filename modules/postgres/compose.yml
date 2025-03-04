@@ -7,7 +7,7 @@ secrets:
 services:
   database:
     container_name: database-postgres
-    image: postgres:17-alpine
+    image: postgres:17.4-alpine3.21
     restart: always
     secrets:
       - root-password
